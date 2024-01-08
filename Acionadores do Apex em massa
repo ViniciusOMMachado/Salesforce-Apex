@@ -1,0 +1,16 @@
+Acionadores do Apex em massa
+
+trigger ClosedOpportunityTrigger on Opportunity (after insert, after update) {    
+List<task> taskLista = new List<Task>();    
+for(Opportunity oppObj : Trigger.new){        
+if(oppObj.StageName == 'Closed Won'){            
+Task tObj = new Task();            
+tObj.subject = 'Tarefa de teste de acompanhamento';             
+tObj.whatId = oppObj.id;             
+taskLista.add(tObj);         
+}     
+}     
+if(taskLista.Size() >0){         
+insert taskLista;   
+}
+}
