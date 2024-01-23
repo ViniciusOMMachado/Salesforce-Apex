@@ -1,0 +1,48 @@
+<apex:page>
+    <style>
+        #conteudo{
+        margin-top:10%;
+        margin-left:10%;
+        margin-right:10%;
+        }
+        #form1{
+        width:300px;
+        }
+    </style>  
+    
+    
+    
+    <div id="conteudo">
+        <center>
+            <div id="form1">
+                
+                
+                
+                
+                <apex:pageBlock title="Cadastrar seu Imóveis">
+                    <apex:form>
+                        <apex:panelGrid columns="2">
+                            
+                            >Quartos: <apex:inputText />
+                            >Banheiros: <apex:inputText />
+                            >Sala: <apex:inputText />
+                            >Cozinha: <apex:inputText />
+                            >Copa: <apex:inputText />
+                            >Suíte: <apex:inputText />                        
+                            >Vagas de garagem: <apex:inputText />
+                            >Valor: <apex:inputText />
+                            
+                            
+                            
+                        </apex:panelGrid>
+                        <br/>
+                        <apex:commandButton value="Salvar"/>
+                    </apex:form>        
+                </apex:pageBlock>
+            </div>
+        </center>
+    </div>
+    
+    
+    
+</apex:page>
