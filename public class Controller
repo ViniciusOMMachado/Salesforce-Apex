@@ -1,0 +1,95 @@
+
+//Código para criação de uma página de seleção onde o cliente informa a quantidade de cômodos em sua casa ou apartamento.
+
+public class ImobiliariaController {
+    //Definições das variáveis
+    
+    public integer quartos {get;set;}
+    public integer banheiros {get;set;}
+    public integer Sala {get;set;}
+    public integer cozinha {get;set;}
+    public integer copa {get;set;}
+    public integer suite {get;set;}
+    public integer vagas {get;set;}
+    public integer valor {get;set;}
+    public string tipoImovel {get; set;}
+    
+    
+    //Método picklist
+    public List<SelectOption> getMinhasOpcoes(){
+        
+        //Mapear o campo de lista de seleção/picklist que deseja listar.
+        Schema.DescribeFieldResult describeResult = Imoveis__c.TipoImovel__c.getDescribe();
+        
+        // Listar as opções válidas dentro do meu campo
+        List<Schema.PicklistEntry> entries =describeResult.getPickListValues();
+        
+        // Criar Variáveis de retorno do tipo lista para o objeto SelectOption
+        List<SelectOption> optionToReturn = new List<SelectOption>();
+        
+        //Adicionar as opções dos campos listados
+        for(Schema.PicklistEntry pEntry : entries){
+            
+            //se a opção esta ativa
+            //pode aplicar o filtro que quiser, caso não queira mostrar todas as opções.
+            if(pEntry.isActive()){
+                
+                //Adicione o nome e o valor na variável de retorno 
+                OptionToReturn.add(new SelectOption(pEntry.getValue(), pEntry.getLabel()));
+            }
+        }
+        //Retornar a Lista de SelectOption que criamos na variável de retorno
+        return OptionToReturn;
+        
+    }
+    
+    
+    
+    
+    //Método Salvar os dados no Salesforce
+    public void salvarImoveis(){
+        
+        Imoveis__c objImoveis = new Imoveis__c();
+        
+        objImoveis.Quartos__c = quartos;
+        objImoveis.Sala__c = sala;
+        objImoveis.Banheiro__c = banheiros;
+        objImoveis.Cozinha__c = cozinha;
+        objImoveis.Suite__c = suite;
+        objImoveis.Garagem__c = vagas;
+        objImoveis.Valor__c = valor;
+        objImoveis.tipoImovel__c = tipoImovel;
+        
+        insert objImoveis;
+        
+        try{
+            
+            if(objImoveis.TipoImovel__c != 'Nenhum' && objImoveis.TipoImovel__c != null){
+                
+                ApexPages.addMessage(new ApexPages.message(ApexPages.Severity.CONFIRM, 'Imóvel cadastrado com sucesso.'));
+                insert objImoveis;
+                //Após salvar essa ação limpas os campos que foi preenchido anteriormente.
+                quartos = null;
+                banheiros = null;
+                sala = null;
+                Cozinha = null;
+                copa = null;
+                vagas = null;
+                valor = null;
+                tipoImovel = null;
+                suite = null;
+                
+            }else{
+                ApexPages.addMessage(new ApexPages.message(ApexPages.Severity.ERROR,'O campo Tipo do Imóvel deve ser preenchido'));
+                                     
+            }  
+                
+                
+        }catch(DmlException e){
+            ApexPages.addMessage(new ApexPages.message(ApexPages.Severity.ERROR,'Por Favor, verifique todos os campos antes de salvar'));
+        }
+        }
+        
+        
+  }
+   
