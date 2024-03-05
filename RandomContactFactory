@@ -1,0 +1,13 @@
+public class RandomContactFactory {
+	
+    public static List <Contact> generateRandomContacts(Integer numcnt, string lastname){
+        List<Contact> contacts = new List<Contact>();
+        for(integer i=0;i<numcnt;i++){
+            Contact cnt = new contact(FirstName = 'Tes '+i, LastName = lastname);
+            contacts.add(cnt); 
+        }
+        return contacts;
+        
+        
+    } 
+}
